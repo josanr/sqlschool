@@ -5,17 +5,23 @@ import java.util.List;
 
 public class Group {
 
-    private final long id;
     private final String name;
     private final List<Student> studentList;
 
-    public Group(long id, String name) {
+    private Integer id;
+
+    public Group(Integer id, String name) {
         this.id = id;
         this.name = name;
         this.studentList = new ArrayList<>();
     }
 
-    public long getId() {
+    public Group(String name) {
+        this.name = name;
+        this.studentList = new ArrayList<>();
+    }
+
+    public Integer getId() {
         return id;
     }
 

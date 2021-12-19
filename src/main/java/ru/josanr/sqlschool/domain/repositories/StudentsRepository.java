@@ -10,9 +10,9 @@ public interface StudentsRepository {
 
     Student add(Student student);
 
-    void remove(Integer id);
+    void remove(Student student);
 
     Student getById(Integer studentId);
 
-    void save(Student student);
+    List<Student> findAll();
 }

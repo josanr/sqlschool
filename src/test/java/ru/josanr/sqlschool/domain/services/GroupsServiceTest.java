@@ -1,13 +1,12 @@
 package ru.josanr.sqlschool.domain.services;
 
-import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Group;
-import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.repositories.GroupRepository;
+import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
 
 import java.util.List;
@@ -15,20 +14,22 @@ import java.util.List;
 class GroupsServiceTest {
 
     private GroupsService groupsService;
-    private GroupRepository repository;
+    private GroupRepository groupRepo;
     private FakeHelper faker;
+    private StudentsRepository studentRepo;
 
     @BeforeEach
     void setUp() {
-        repository = Mockito.mock(GroupRepository.class);
-        groupsService = new GroupsService(repository);
+        groupRepo = Mockito.mock(GroupRepository.class);
+        studentRepo = Mockito.mock(StudentsRepository.class);
+        groupsService = new GroupsService(groupRepo, studentRepo);
         faker = new FakeHelper();
     }
 
     @Test
     void findWithStudentCount_shouldReturnGroupContainingNumberOfStudents() {
 
-        Mockito.when(repository.findByStudentCount(2))
+        Mockito.when(groupRepo.findByStudentCount(2))
             .thenReturn(getListOfGroups());
 
         var byStudentCount = groupsService.findByStudentCount(2);

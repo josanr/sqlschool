@@ -30,6 +30,7 @@ public class Student {
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
@@ -38,7 +39,20 @@ public class Student {
         return group;
     }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
     public void addCourse(Course course) {
         courseList.add(course);
     }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
 }

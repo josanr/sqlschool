@@ -41,10 +41,10 @@ class StudentServiceTest {
 
     @Test
     void remove_shouldCallRepositoryRemove() {
-        var id = fakeHelper.id();
+        var student = fakeHelper.student();
+        Mockito.when(repository.getById(student.getId())).thenReturn(student);
+        studentService.remove(student.getId());
 
-        studentService.remove(id);
-
-        Mockito.verify(repository, Mockito.times(1)).remove(id);
+        Mockito.verify(repository, Mockito.times(1)).remove(student);
     }
 }

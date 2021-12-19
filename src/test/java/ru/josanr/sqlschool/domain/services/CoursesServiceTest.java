@@ -1,6 +1,5 @@
 package ru.josanr.sqlschool.domain.services;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -9,8 +8,6 @@ import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.repositories.CoursesRepository;
 import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
-
-import java.util.List;
 
 class CoursesServiceTest {
 
@@ -25,17 +22,6 @@ class CoursesServiceTest {
         studentRepo = Mockito.mock(StudentsRepository.class);
         courseService = new CoursesService(repo, studentRepo);
         fakerHelper = new FakeHelper();
-    }
-
-    @Test
-    void listCourseStudents_shouldReturnStudentsAssignedToCourse() {
-        Course course = fakerHelper.course();
-        course.addStudent(fakerHelper.student());
-        course.addStudent(fakerHelper.student());
-
-        Mockito.when(repo.findByName("course")).thenReturn(List.of(course));
-        var students = courseService.listCourseStudents("course");
-        Assertions.assertEquals(2, students.size());
     }
 
     @Test

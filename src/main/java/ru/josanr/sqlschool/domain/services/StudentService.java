@@ -4,6 +4,8 @@ import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.factories.StudentFactory;
 import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
 
+import java.util.List;
+
 public class StudentService {
 
     private final StudentsRepository repository;
@@ -20,6 +22,15 @@ public class StudentService {
     }
 
     public void remove(Integer id) {
-        repository.remove(id);
+        var student = repository.getById(id);
+        repository.remove(student);
+    }
+
+    public List<Student> findAll() {
+        return repository.findAll();
+    }
+
+    public Student findById(int studentId) {
+        return repository.getById(studentId);
     }
 }

@@ -14,4 +14,10 @@ public interface CoursesRepository {
     void addStudentToCourse(Course course, Student student);
 
     void removeStudentFromCourse(Course course, Student student);
+
+    Course add(Course course);
+
+    List<Course> findByStudent(Student student);
+
+    List<Course> findAll();
 }

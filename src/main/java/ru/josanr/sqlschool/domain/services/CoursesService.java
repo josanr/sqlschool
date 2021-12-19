@@ -5,7 +5,6 @@ import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.repositories.CoursesRepository;
 import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CoursesService {
@@ -19,10 +18,8 @@ public class CoursesService {
     }
 
     public List<Student> listCourseStudents(String courseName) {
-        var studentList = new ArrayList<Student>();
-        courseRepo.findByName(courseName).forEach(course -> studentList.addAll(course.getStudents()));
 
-        return studentList;
+        return studentRepo.findByCourseName(courseName);
     }
 
     public void addStudentToCourse(Integer courseId, Integer studentId) {
@@ -39,5 +36,9 @@ public class CoursesService {
 
         courseRepo.removeStudentFromCourse(course, student);
 
+    }
+
+    public List<Course> findAll() {
+        return courseRepo.findAll();
     }
 }
