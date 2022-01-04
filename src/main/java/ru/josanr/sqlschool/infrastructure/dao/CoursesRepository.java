@@ -1,4 +1,4 @@
-package ru.josanr.sqlschool.domain.repositories;
+package ru.josanr.sqlschool.infrastructure.dao;
 
 import ru.josanr.sqlschool.domain.entities.Course;
 import ru.josanr.sqlschool.domain.entities.Student;
@@ -7,15 +7,13 @@ import java.util.List;
 
 public interface CoursesRepository {
 
-    List<Course> findByName(String courseName);
+    Course create(Course course);
 
     Course getById(Integer id);
 
     void addStudentToCourse(Course course, Student student);
 
     void removeStudentFromCourse(Course course, Student student);
-
-    Course add(Course course);
 
     List<Course> findByStudent(Student student);
 

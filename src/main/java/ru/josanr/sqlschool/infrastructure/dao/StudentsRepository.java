@@ -1,4 +1,4 @@
-package ru.josanr.sqlschool.domain.repositories;
+package ru.josanr.sqlschool.infrastructure.dao;
 
 import ru.josanr.sqlschool.domain.entities.Student;
 
@@ -8,7 +8,9 @@ public interface StudentsRepository {
 
     List<Student> findByCourseName(String courseName);
 
-    Student add(Student student);
+    Student create(Student student);
+
+    Student update(Student student);
 
     void remove(Student student);
 

@@ -1,12 +1,13 @@
 package ru.josanr.sqlschool.application;
 
 import com.github.javafaker.Faker;
+import org.flywaydb.core.Flyway;
 import ru.josanr.sqlschool.domain.entities.Course;
 import ru.josanr.sqlschool.domain.entities.Group;
 import ru.josanr.sqlschool.domain.entities.Student;
-import ru.josanr.sqlschool.domain.repositories.CoursesRepository;
-import ru.josanr.sqlschool.domain.repositories.GroupRepository;
-import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
+import ru.josanr.sqlschool.infrastructure.dao.CoursesRepository;
+import ru.josanr.sqlschool.infrastructure.dao.GroupRepository;
+import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,7 +19,9 @@ public class AppInitializer {
     private final StudentsRepository studentsRepo;
     private final GroupRepository groupRepo;
     private final CoursesRepository courseRepo;
-
+    private final Faker faker;
+    private final Flyway migrations;
+    private final Random random;
     private final String[] courseNameList = {
         "Agriculture",
         "Astronomy",
@@ -31,38 +34,34 @@ public class AppInitializer {
         "Environmental studies",
         "Forensic science"
     };
-    private final Random random;
 
     public AppInitializer(
         StudentsRepository studentsRepo,
         GroupRepository groupRepo,
-        CoursesRepository courseRepo
+        CoursesRepository courseRepo,
+        Faker faker,
+        Flyway flyway
 
     ) {
         this.studentsRepo = studentsRepo;
         this.groupRepo = groupRepo;
         this.courseRepo = courseRepo;
+        this.faker = faker;
+        this.migrations = flyway;
         random = new Random();
     }
 
-    public void run(Faker faker) {
-        var groupList = new ArrayList<Group>();
-        var courseList = new ArrayList<Course>();
-        var studentList = new ArrayList<Student>();
+    public void run() {
+        migrations.migrate();
+        fillInitialData();
+    }
 
-        for (int index = 0; index < INITIAL_GROUP_COUNT; index++) {
-            var fakeName = faker.lorem().characters(2) + "-" + faker.number().digits(2);
-            groupList.add(index, groupRepo.add(new Group(fakeName)));
-        }
+    private void fillInitialData() {
+        ArrayList<Group> groupList = buildGroupList();
 
-        for (int index = 0; index < courseNameList.length; index++) {
-            courseList.add(index, courseRepo.add(new Course(courseNameList[index], "description")));
-        }
+        ArrayList<Course> courseList = buildCourseList();
 
-        for (int index = 0; index < INITIAL_STUDENTS_COUNT; index++) {
-            var student = new Student(faker.name().firstName(), faker.name().lastName());
-            studentList.add(index, studentsRepo.add(student));
-        }
+        ArrayList<Student> studentList = buildStudentList();
 
         for (Student student : studentList) {
             var randomGroupIndex = random.ints(0, groupList.size() - 1)
@@ -78,5 +77,31 @@ public class AppInitializer {
             courseRepo.addStudentToCourse(course, student);
             groupRepo.addStudentToGroup(group, student);
         }
+    }
+
+    private ArrayList<Student> buildStudentList() {
+        var studentList = new ArrayList<Student>();
+        for (int index = 0; index < INITIAL_STUDENTS_COUNT; index++) {
+            var student = new Student(faker.name().firstName(), faker.name().lastName());
+            studentList.add(index, studentsRepo.create(student));
+        }
+        return studentList;
+    }
+
+    private ArrayList<Course> buildCourseList() {
+        var courseList = new ArrayList<Course>();
+        for (int index = 0; index < courseNameList.length; index++) {
+            courseList.add(index, courseRepo.create(new Course(courseNameList[index], "description")));
+        }
+        return courseList;
+    }
+
+    private ArrayList<Group> buildGroupList() {
+        var groupList = new ArrayList<Group>();
+        for (int index = 0; index < INITIAL_GROUP_COUNT; index++) {
+            var fakeName = faker.lorem().characters(2) + "-" + faker.number().digits(2);
+            groupList.add(index, groupRepo.create(new Group(fakeName)));
+        }
+        return groupList;
     }
 }

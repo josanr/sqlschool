@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Group;
-import ru.josanr.sqlschool.domain.repositories.GroupRepository;
-import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
+import ru.josanr.sqlschool.infrastructure.dao.GroupRepository;
+import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
 
 import java.util.List;
@@ -22,7 +22,7 @@ class GroupsServiceTest {
     void setUp() {
         groupRepo = Mockito.mock(GroupRepository.class);
         studentRepo = Mockito.mock(StudentsRepository.class);
-        groupsService = new GroupsService(groupRepo, studentRepo);
+        groupsService = new GroupsServiceImpl(groupRepo, studentRepo);
         faker = new FakeHelper();
     }
 

@@ -1,10 +1,10 @@
-package ru.josanr.sqlschool.infrastructure;
+package ru.josanr.sqlschool.infrastructure.dao;
 
 import ru.josanr.sqlschool.domain.entities.Group;
 import ru.josanr.sqlschool.domain.entities.Student;
-import ru.josanr.sqlschool.domain.repositories.GroupRepository;
-import ru.josanr.sqlschool.infrastructure.exceptions.StorageException;
+import ru.josanr.sqlschool.infrastructure.dao.exceptions.StorageException;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.List;
 
 public class GroupRepositoryImpl implements GroupRepository {
 
-    private final ConnectionSource connectionSource;
+    private final DataSource connectionSource;
 
-    public GroupRepositoryImpl(ConnectionSource connectionSource) {
+    public GroupRepositoryImpl(DataSource connectionSource) {
         this.connectionSource = connectionSource;
     }
 
@@ -26,7 +26,11 @@ public class GroupRepositoryImpl implements GroupRepository {
             "GROUP BY g.id HAVING count(*) <= ?";
 
         var result = new ArrayList<Group>();
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             stmt.setLong(1, count);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
@@ -41,29 +45,13 @@ public class GroupRepositoryImpl implements GroupRepository {
     }
 
     @Override
-    public Group add(Group group) {
-        if (group.getId() == null) {
-            return this.addNewGroup(group);
-        }
-        return this.updateGroup(group);
-    }
-
-    private Group updateGroup(Group group) {
-        var sql = "UPDATE groups SET name = ? WHERE id = ?";
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
-            stmt.setString(1, group.getName());
-            stmt.setInt(2, group.getId());
-            stmt.executeUpdate();
-            return group;
-        } catch (SQLException e) {
-            throw new StorageException("Error on group update", e);
-        }
-    }
-
-    private Group addNewGroup(Group group) {
+    public Group create(Group group) {
         var sql = "INSERT INTO groups (name)" +
             "VALUES (?) RETURNING id; ";
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             stmt.setString(1, group.getName());
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
@@ -79,7 +67,10 @@ public class GroupRepositoryImpl implements GroupRepository {
     public Group getById(Integer groupId) {
         String sql = "SELECT id, name FROM groups WHERE id = ?";
 
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             stmt.setInt(1, groupId);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
@@ -95,7 +86,10 @@ public class GroupRepositoryImpl implements GroupRepository {
     public void addStudentToGroup(Group group, Student student) {
         String sql = "UPDATE students SET group_id = ? WHERE id = ?";
 
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             stmt.setInt(1, group.getId());
             stmt.setInt(2, student.getId());
             stmt.executeUpdate();
@@ -108,7 +102,10 @@ public class GroupRepositoryImpl implements GroupRepository {
     public void removeStudentFromGroup(Group group, Student student) {
         String sql = "UPDATE students SET group_id = null WHERE id = ? AND group_id = ?";
 
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             stmt.setInt(1, student.getId());
             stmt.setInt(2, group.getId());
             stmt.executeUpdate();

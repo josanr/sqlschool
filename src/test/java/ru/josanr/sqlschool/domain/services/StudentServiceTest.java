@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.factories.StudentFactory;
-import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
+import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
 
 class StudentServiceTest {
@@ -20,7 +20,7 @@ class StudentServiceTest {
     void setUp() {
         repository = Mockito.mock(StudentsRepository.class);
         factory = Mockito.mock(StudentFactory.class);
-        studentService = new StudentService(repository, factory);
+        studentService = new StudentServiceImpl(repository, factory);
         fakeHelper = new FakeHelper();
     }
 
@@ -29,11 +29,11 @@ class StudentServiceTest {
 
         var student = fakeHelper.student();
         Mockito.when(factory.create(student.getFirstName(), student.getLastName())).thenReturn(student);
-        Mockito.when(repository.add(student)).thenReturn(new Student(1, student.getFirstName(), student.getLastName()));
+        Mockito.when(repository.create(student)).thenReturn(new Student(1, student.getFirstName(), student.getLastName()));
 
         var createdStudent = studentService.createStudent(student.getFirstName(), student.getLastName());
 
-        Mockito.verify(repository, Mockito.times(1)).add(student);
+        Mockito.verify(repository, Mockito.times(1)).create(student);
         Assertions.assertEquals(student.getFirstName(), createdStudent.getFirstName());
         Assertions.assertEquals(student.getLastName(), createdStudent.getLastName());
         Assertions.assertNotEquals(student.getId(), createdStudent.getId());

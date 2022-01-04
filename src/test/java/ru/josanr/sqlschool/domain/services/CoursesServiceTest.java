@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Course;
 import ru.josanr.sqlschool.domain.entities.Student;
-import ru.josanr.sqlschool.domain.repositories.CoursesRepository;
-import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
+import ru.josanr.sqlschool.infrastructure.dao.CoursesRepository;
+import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
 
 class CoursesServiceTest {
@@ -20,7 +20,7 @@ class CoursesServiceTest {
     void setUp() {
         repo = Mockito.mock(CoursesRepository.class);
         studentRepo = Mockito.mock(StudentsRepository.class);
-        courseService = new CoursesService(repo, studentRepo);
+        courseService = new CoursesServiceImpl(repo, studentRepo);
         fakerHelper = new FakeHelper();
     }
 

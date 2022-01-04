@@ -1,14 +1,14 @@
-package ru.josanr.sqlschool.application.commands;
+package ru.josanr.sqlschool.infrastructure.ui.controllers;
 
 import ru.josanr.sqlschool.domain.services.CoursesService;
 import ru.josanr.sqlschool.domain.services.StudentService;
-import ru.josanr.sqlschool.infrastructure.exceptions.StorageException;
+import ru.josanr.sqlschool.infrastructure.dao.exceptions.StorageException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class RemoveStudentFromCourse implements Command {
+public class RemoveStudentFromCourse implements Controller {
 
     private final StudentService studentService;
     private final CoursesService coursesService;
@@ -28,7 +28,7 @@ public class RemoveStudentFromCourse implements Command {
     }
 
     @Override
-    public void execute() throws IOException {
+    public void run() throws IOException {
         var students = studentService.findAll();
 
         output.println("Id - Students\n------------------------");

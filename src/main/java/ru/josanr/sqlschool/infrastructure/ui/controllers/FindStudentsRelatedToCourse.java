@@ -1,4 +1,4 @@
-package ru.josanr.sqlschool.application.commands;
+package ru.josanr.sqlschool.infrastructure.ui.controllers;
 
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.services.CoursesService;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.List;
 
-public class FindStudentsRelatedToCourse implements Command {
+public class FindStudentsRelatedToCourse implements Controller {
 
     private final CoursesService coursesService;
     private final BufferedReader input;
@@ -21,7 +21,7 @@ public class FindStudentsRelatedToCourse implements Command {
     }
 
     @Override
-    public void execute() throws IOException {
+    public void run() throws IOException {
         output.print("Course name: ");
         var courseName = input.readLine();
         List<Student> students = coursesService.listCourseStudents(courseName);

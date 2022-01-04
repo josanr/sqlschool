@@ -1,13 +1,13 @@
-package ru.josanr.sqlschool.application.commands;
+package ru.josanr.sqlschool.infrastructure.ui.controllers;
 
 import ru.josanr.sqlschool.domain.services.StudentService;
-import ru.josanr.sqlschool.infrastructure.exceptions.StorageException;
+import ru.josanr.sqlschool.infrastructure.dao.exceptions.StorageException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class DeleteStudent implements Command {
+public class DeleteStudent implements Controller {
 
     private final StudentService studentService;
     private final BufferedReader input;
@@ -20,7 +20,7 @@ public class DeleteStudent implements Command {
     }
 
     @Override
-    public void execute() throws IOException {
+    public void run() throws IOException {
         output.print("student id: ");
         var studentIdInput = input.readLine();
         try {

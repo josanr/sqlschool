@@ -1,4 +1,4 @@
-package ru.josanr.sqlschool.infrastructure.exceptions;
+package ru.josanr.sqlschool.infrastructure.dao.exceptions;
 
 
 public class StorageException extends RuntimeException {

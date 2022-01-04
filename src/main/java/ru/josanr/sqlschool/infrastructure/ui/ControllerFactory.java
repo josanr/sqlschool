@@ -1,12 +1,12 @@
-package ru.josanr.sqlschool.application;
+package ru.josanr.sqlschool.infrastructure.ui;
 
-import ru.josanr.sqlschool.application.commands.AddNewStudent;
-import ru.josanr.sqlschool.application.commands.AddStudentToCourse;
-import ru.josanr.sqlschool.application.commands.Command;
-import ru.josanr.sqlschool.application.commands.DeleteStudent;
-import ru.josanr.sqlschool.application.commands.FindAllGroups;
-import ru.josanr.sqlschool.application.commands.FindStudentsRelatedToCourse;
-import ru.josanr.sqlschool.application.commands.RemoveStudentFromCourse;
+import ru.josanr.sqlschool.infrastructure.ui.controllers.AddNewStudent;
+import ru.josanr.sqlschool.infrastructure.ui.controllers.AddStudentToCourse;
+import ru.josanr.sqlschool.infrastructure.ui.controllers.Controller;
+import ru.josanr.sqlschool.infrastructure.ui.controllers.DeleteStudent;
+import ru.josanr.sqlschool.infrastructure.ui.controllers.FindAllGroups;
+import ru.josanr.sqlschool.infrastructure.ui.controllers.FindStudentsRelatedToCourse;
+import ru.josanr.sqlschool.infrastructure.ui.controllers.RemoveStudentFromCourse;
 import ru.josanr.sqlschool.domain.services.CoursesService;
 import ru.josanr.sqlschool.domain.services.GroupsService;
 import ru.josanr.sqlschool.domain.services.StudentService;
@@ -14,7 +14,7 @@ import ru.josanr.sqlschool.domain.services.StudentService;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 
-public class CommandFactory {
+public class ControllerFactory {
 
     private final GroupsService groupsService;
     private final CoursesService coursesService;
@@ -22,7 +22,7 @@ public class CommandFactory {
     private final BufferedReader input;
     private final PrintStream output;
 
-    public CommandFactory(
+    public ControllerFactory(
         GroupsService groupsService,
         CoursesService coursesService,
         StudentService studentService,
@@ -36,7 +36,7 @@ public class CommandFactory {
         this.output = output;
     }
 
-    Command get(String command) {
+    public Controller getController(String command) {
         switch (command) {
             case "a":
                 return new FindAllGroups(

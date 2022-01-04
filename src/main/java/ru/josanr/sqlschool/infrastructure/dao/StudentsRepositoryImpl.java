@@ -1,11 +1,9 @@
-package ru.josanr.sqlschool.infrastructure;
+package ru.josanr.sqlschool.infrastructure.dao;
 
 import ru.josanr.sqlschool.domain.entities.Student;
-import ru.josanr.sqlschool.domain.repositories.CoursesRepository;
-import ru.josanr.sqlschool.domain.repositories.GroupRepository;
-import ru.josanr.sqlschool.domain.repositories.StudentsRepository;
-import ru.josanr.sqlschool.infrastructure.exceptions.StorageException;
+import ru.josanr.sqlschool.infrastructure.dao.exceptions.StorageException;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -14,12 +12,12 @@ import java.util.List;
 
 public class StudentsRepositoryImpl implements StudentsRepository {
 
-    private final ConnectionSource connectionSource;
+    private final DataSource connectionSource;
     private final GroupRepository groupRepo;
     private final CoursesRepository coursesRepo;
 
     public StudentsRepositoryImpl(
-        ConnectionSource connectionSource,
+        DataSource connectionSource,
         GroupRepository groupRepo,
         CoursesRepository coursesRepo
     ) {
@@ -30,13 +28,15 @@ public class StudentsRepositoryImpl implements StudentsRepository {
 
     @Override
     public List<Student> findByCourseName(String courseName) {
-
         String sql = "SELECT s.id, s.first_name, s.last_name, s.group_id FROM students s " +
             "JOIN students_courses sc on s.id = sc.student_id  " +
             "JOIN courses c on sc.course_id = c.id AND c.name LIKE ?";
 
         var result = new ArrayList<Student>();
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             stmt.setString(1, courseName);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
@@ -50,17 +50,13 @@ public class StudentsRepositoryImpl implements StudentsRepository {
         return result;
     }
 
-    @Override
-    public Student add(Student student) {
-        if (student.getId() == null) {
-            return this.addNewStudent(student);
-        }
-        return this.updateStudent(student);
-    }
-
-    private Student updateStudent(Student student) {
+    public Student update(Student student) {
         var sql = "UPDATE students SET group_id = ?, first_name = ?, last_name = ? WHERE id = ?";
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             if (student.getGroup() != null) {
                 stmt.setInt(1, student.getGroup().getId());
             } else {
@@ -77,10 +73,15 @@ public class StudentsRepositoryImpl implements StudentsRepository {
         }
     }
 
-    private Student addNewStudent(Student student) {
+    @Override
+    public Student create(Student student) {
         var sql = "INSERT INTO students (group_id, first_name, last_name)" +
             "VALUES (?, ?, ?) RETURNING id; ";
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             if (student.getGroup() != null) {
                 stmt.setInt(1, student.getGroup().getId());
             } else {
@@ -101,7 +102,11 @@ public class StudentsRepositoryImpl implements StudentsRepository {
     @Override
     public void remove(Student student) {
         var sql = "DELETE FROM students WHERE id = ?";
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             stmt.setInt(1, student.getId());
             var rows = stmt.executeUpdate();
             if (rows == 0 || rows > 1) {
@@ -116,7 +121,10 @@ public class StudentsRepositoryImpl implements StudentsRepository {
     public Student getById(Integer studentId) {
         String sql = "SELECT s.id, s.first_name, s.last_name, s.group_id FROM students s WHERE id = ?";
 
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             stmt.setInt(1, studentId);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
@@ -132,7 +140,10 @@ public class StudentsRepositoryImpl implements StudentsRepository {
         String sql = "SELECT s.id, s.first_name, s.last_name, s.group_id FROM students s";
 
         var result = new ArrayList<Student>();
-        try (var stmt = connectionSource.getConnection().prepareStatement(sql)) {
+        try (
+            var connection = connectionSource.getConnection();
+            var stmt = connection.prepareStatement(sql)
+        ) {
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
                     result.add(map(resultSet));

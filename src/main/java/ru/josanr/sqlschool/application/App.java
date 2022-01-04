@@ -1,36 +1,32 @@
 package ru.josanr.sqlschool.application;
 
+import ru.josanr.sqlschool.infrastructure.ui.ControllerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
 public class App {
 
-
-    private final CommandFactory factory;
+    private final ControllerFactory factory;
     private final BufferedReader input;
     private final PrintStream output;
 
-    public App(
-        CommandFactory factory,
-        BufferedReader input,
-        PrintStream output
-    ) {
+    public App(ControllerFactory factory, BufferedReader input, PrintStream output) {
         this.factory = factory;
-
         this.input = input;
         this.output = output;
     }
 
     public void run() {
         while (true) {
-            this.printMenu();
-            this.printCommandWait();
+            printMenu();
+            printCommandWait();
             try {
                 String command = input.readLine();
                 if ("exit".equalsIgnoreCase(command)) {
                     output.println("quiting");
-                    break;
+                    return;
                 }
 
                 this.execute(command);
@@ -38,7 +34,7 @@ public class App {
             } catch (Exception e) {
                 output.println("Application error: " + e.getMessage());
                 e.printStackTrace();
-                break;
+                return;
             }
         }
     }
@@ -62,7 +58,7 @@ public class App {
 
     private void execute(String command) throws IOException {
         try {
-            factory.get(command).execute();
+            factory.getController(command).run();
         } catch (RuntimeException e) {
             output.println(e.getMessage());
         }

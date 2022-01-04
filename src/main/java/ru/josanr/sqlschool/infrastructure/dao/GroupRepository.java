@@ -1,4 +1,4 @@
-package ru.josanr.sqlschool.domain.repositories;
+package ru.josanr.sqlschool.infrastructure.dao;
 
 import ru.josanr.sqlschool.domain.entities.Group;
 import ru.josanr.sqlschool.domain.entities.Student;
@@ -9,7 +9,7 @@ public interface GroupRepository {
 
     List<Group> findByStudentCount(long count);
 
-    Group add(Group group);
+    Group create(Group group);
 
     Group getById(Integer groupId);
 

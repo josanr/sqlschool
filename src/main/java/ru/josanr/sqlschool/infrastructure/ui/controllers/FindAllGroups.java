@@ -1,4 +1,4 @@
-package ru.josanr.sqlschool.application.commands;
+package ru.josanr.sqlschool.infrastructure.ui.controllers;
 
 import ru.josanr.sqlschool.domain.services.GroupsService;
 
@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class FindAllGroups implements Command {
+public class FindAllGroups implements Controller {
 
     private final GroupsService groupsService;
     private final BufferedReader input;
@@ -20,7 +20,7 @@ public class FindAllGroups implements Command {
     }
 
     @Override
-    public void execute() throws IOException {
+    public void run() throws IOException {
         output.print("number of students: ");
         var numberOfStudentsInput = input.readLine();
         try {

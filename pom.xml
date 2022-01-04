@@ -13,14 +13,15 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.jupiter.version>5.8.1</junit.jupiter.version>
-        <junit.platform.version>1.8.1</junit.platform.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <junit.platform.version>1.8.2</junit.platform.version>
         <mockito.version>4.1.0</mockito.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <maven.failsafe.plugin.version>2.22.2</maven.failsafe.plugin.version>
-        <javafaker.version>0.15</javafaker.version>
+        <javafaker.version>1.0.2</javafaker.version>
         <postgresql.version>42.3.1</postgresql.version>
+        <flyway-core.version>8.3.0</flyway-core.version>
     </properties>
 
     <dependencies>
@@ -63,6 +64,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway-core.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,4 +1,4 @@
-package ru.josanr.sqlschool.application.commands;
+package ru.josanr.sqlschool.infrastructure.ui.controllers;
 
 import ru.josanr.sqlschool.domain.services.StudentService;
 
@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class AddNewStudent implements Command {
+public class AddNewStudent implements Controller {
 
     private final StudentService studentService;
     private final BufferedReader input;
@@ -20,7 +20,7 @@ public class AddNewStudent implements Command {
     }
 
     @Override
-    public void execute() throws IOException {
+    public void run() throws IOException {
         output.print("Student first name: ");
         var firstName = input.readLine();
         output.print("Student second name: ");
