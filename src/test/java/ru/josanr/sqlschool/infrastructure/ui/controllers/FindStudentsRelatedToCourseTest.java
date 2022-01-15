@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.services.CoursesService;
-import ru.josanr.sqlschool.domain.services.GroupsService;
-import ru.josanr.sqlschool.domain.services.StudentService;
 
 import java.io.BufferedReader;
 import java.io.IOException;

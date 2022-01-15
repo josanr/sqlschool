@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class GroupsServiceImpl implements GroupsService {
 
     private final StudentsRepository studentRepo;
-    GroupRepository groupRepo;
+    final GroupRepository groupRepo;
 
     public GroupsServiceImpl(GroupRepository groupRepo, StudentsRepository studentRepo) {
         this.groupRepo = groupRepo;

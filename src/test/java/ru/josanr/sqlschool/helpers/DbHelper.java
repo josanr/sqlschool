@@ -1,6 +1,5 @@
 package ru.josanr.sqlschool.helpers;
 
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 

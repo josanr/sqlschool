@@ -16,12 +16,11 @@ class GroupsServiceTest {
     private GroupsService groupsService;
     private GroupRepository groupRepo;
     private FakeHelper faker;
-    private StudentsRepository studentRepo;
 
     @BeforeEach
     void setUp() {
         groupRepo = Mockito.mock(GroupRepository.class);
-        studentRepo = Mockito.mock(StudentsRepository.class);
+        StudentsRepository studentRepo = Mockito.mock(StudentsRepository.class);
         groupsService = new GroupsServiceImpl(groupRepo, studentRepo);
         faker = new FakeHelper();
     }

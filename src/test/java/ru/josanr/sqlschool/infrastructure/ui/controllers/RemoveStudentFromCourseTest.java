@@ -12,7 +12,6 @@ import ru.josanr.sqlschool.domain.services.StudentService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.List;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -24,11 +23,10 @@ class RemoveStudentFromCourseTest {
     private BufferedReader input;
     private PrintStream output;
     private CoursesService coursesService;
-    private GroupsService groupsService;
 
     @BeforeEach
     void setUp() {
-        groupsService = Mockito.mock(GroupsService.class);
+        GroupsService groupsService = Mockito.mock(GroupsService.class);
         coursesService = Mockito.mock(CoursesService.class);
         studentService = Mockito.mock(StudentService.class);
         input = Mockito.mock(BufferedReader.class);

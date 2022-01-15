@@ -1,7 +1,5 @@
 package ru.josanr.sqlschool.domain.services;
 
-import com.github.database.rider.core.api.dataset.DataSet;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -9,8 +7,6 @@ import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.factories.StudentFactory;
 import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
-
-import static org.hamcrest.MatcherAssert.assertThat;
 
 class StudentServiceTest {
 

@@ -41,8 +41,6 @@ class ControllerFactoryTest {
 
     @Test
     void getController_shouldThrowException_givenStringOptionWhichDoesNotExist() {
-        Assertions.assertThrows(IllegalStateException.class, () -> {
-            controllerFactory.getController("y");
-        });
+        Assertions.assertThrows(IllegalStateException.class, () -> controllerFactory.getController("y"));
     }
 }

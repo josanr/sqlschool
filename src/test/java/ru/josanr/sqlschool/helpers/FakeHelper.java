@@ -24,10 +24,6 @@ public class FakeHelper {
         return faker.number().randomDigit();
     }
 
-    public String name() {
-        return faker.name().fullName();
-    }
-
     public Student student() {
         return new Student(this.id(), this.word(), this.word());
     }
