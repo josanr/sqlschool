@@ -15,13 +15,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <junit.platform.version>1.8.2</junit.platform.version>
-        <mockito.version>4.1.0</mockito.version>
+        <mockito.version>4.2.0</mockito.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <maven.failsafe.plugin.version>2.22.2</maven.failsafe.plugin.version>
         <javafaker.version>1.0.2</javafaker.version>
         <postgresql.version>42.3.1</postgresql.version>
-        <flyway-core.version>8.3.0</flyway-core.version>
+        <flyway-core.version>8.4.1</flyway-core.version>
+        <dbunit.version>2.7.2</dbunit.version>
+        <rider-junit5.version>1.32.0</rider-junit5.version>
+        <hamcrest-library.version>2.2</hamcrest-library.version>
     </properties>
 
     <dependencies>
@@ -69,6 +72,18 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>${flyway-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.database-rider</groupId>
+            <artifactId>rider-junit5</artifactId>
+            <version>${rider-junit5.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+            <version>${hamcrest-library.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

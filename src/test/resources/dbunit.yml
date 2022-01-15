@@ -1,0 +1,9 @@
+properties:
+  caseSensitiveTableNames: true
+  schema: "test"
+
+connectionConfig:
+  driver: "org.postgresql.Driver"
+  url: "jdbc:postgresql://localhost:5432/school"
+  user: "school_admin"
+  password: "school_admin_pass"

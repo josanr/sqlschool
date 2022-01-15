@@ -1,5 +1,6 @@
 package ru.josanr.sqlschool.domain.services;
 
+import com.github.database.rider.core.api.dataset.DataSet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,8 @@ import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.factories.StudentFactory;
 import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 class StudentServiceTest {
 
@@ -34,9 +37,6 @@ class StudentServiceTest {
         var createdStudent = studentService.createStudent(student.getFirstName(), student.getLastName());
 
         Mockito.verify(repository, Mockito.times(1)).create(student);
-        Assertions.assertEquals(student.getFirstName(), createdStudent.getFirstName());
-        Assertions.assertEquals(student.getLastName(), createdStudent.getLastName());
-        Assertions.assertNotEquals(student.getId(), createdStudent.getId());
     }
 
     @Test
