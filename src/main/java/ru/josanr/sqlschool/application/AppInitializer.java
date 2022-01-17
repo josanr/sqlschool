@@ -58,9 +58,7 @@ public class AppInitializer {
 
     private void fillInitialData() {
         ArrayList<Group> groupList = buildGroupList();
-
         ArrayList<Course> courseList = buildCourseList();
-
         ArrayList<Student> studentList = buildStudentList();
 
         for (Student student : studentList) {
