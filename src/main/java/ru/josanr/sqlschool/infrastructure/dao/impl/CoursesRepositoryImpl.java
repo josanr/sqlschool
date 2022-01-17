@@ -1,7 +1,8 @@
-package ru.josanr.sqlschool.infrastructure.dao;
+package ru.josanr.sqlschool.infrastructure.dao.impl;
 
 import ru.josanr.sqlschool.domain.entities.Course;
 import ru.josanr.sqlschool.domain.entities.Student;
+import ru.josanr.sqlschool.infrastructure.dao.CoursesRepository;
 import ru.josanr.sqlschool.infrastructure.dao.exceptions.StorageException;
 
 import javax.sql.DataSource;

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Course;
 import ru.josanr.sqlschool.domain.entities.Student;
+import ru.josanr.sqlschool.domain.services.impl.CoursesServiceImpl;
 import ru.josanr.sqlschool.infrastructure.dao.CoursesRepository;
 import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;

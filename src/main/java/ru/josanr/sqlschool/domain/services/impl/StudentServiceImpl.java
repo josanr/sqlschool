@@ -1,7 +1,8 @@
-package ru.josanr.sqlschool.domain.services;
+package ru.josanr.sqlschool.domain.services.impl;
 
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.factories.StudentFactory;
+import ru.josanr.sqlschool.domain.services.StudentService;
 import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 
 import java.util.List;

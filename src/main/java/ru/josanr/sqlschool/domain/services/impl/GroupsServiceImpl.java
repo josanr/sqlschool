@@ -1,5 +1,6 @@
-package ru.josanr.sqlschool.domain.services;
+package ru.josanr.sqlschool.domain.services.impl;
 
+import ru.josanr.sqlschool.domain.services.GroupsService;
 import ru.josanr.sqlschool.infrastructure.dao.GroupRepository;
 import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 

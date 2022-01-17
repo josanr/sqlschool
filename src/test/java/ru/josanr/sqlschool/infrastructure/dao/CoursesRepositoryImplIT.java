@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import ru.josanr.sqlschool.domain.entities.Course;
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.helpers.DbHelper;
+import ru.josanr.sqlschool.infrastructure.dao.impl.CoursesRepositoryImpl;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

@@ -7,12 +7,12 @@ import ru.josanr.sqlschool.application.App;
 import ru.josanr.sqlschool.application.AppInitializer;
 import ru.josanr.sqlschool.application.Config;
 import ru.josanr.sqlschool.domain.factories.StudentFactory;
-import ru.josanr.sqlschool.domain.services.CoursesServiceImpl;
-import ru.josanr.sqlschool.domain.services.GroupsServiceImpl;
-import ru.josanr.sqlschool.domain.services.StudentServiceImpl;
-import ru.josanr.sqlschool.infrastructure.dao.CoursesRepositoryImpl;
-import ru.josanr.sqlschool.infrastructure.dao.GroupRepositoryImpl;
-import ru.josanr.sqlschool.infrastructure.dao.StudentsRepositoryImpl;
+import ru.josanr.sqlschool.domain.services.impl.CoursesServiceImpl;
+import ru.josanr.sqlschool.domain.services.impl.GroupsServiceImpl;
+import ru.josanr.sqlschool.domain.services.impl.StudentServiceImpl;
+import ru.josanr.sqlschool.infrastructure.dao.impl.CoursesRepositoryImpl;
+import ru.josanr.sqlschool.infrastructure.dao.impl.GroupRepositoryImpl;
+import ru.josanr.sqlschool.infrastructure.dao.impl.StudentsRepositoryImpl;
 import ru.josanr.sqlschool.infrastructure.ui.ControllerFactory;
 
 import javax.sql.DataSource;

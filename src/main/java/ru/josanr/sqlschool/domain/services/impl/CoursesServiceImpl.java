@@ -1,7 +1,8 @@
-package ru.josanr.sqlschool.domain.services;
+package ru.josanr.sqlschool.domain.services.impl;
 
 import ru.josanr.sqlschool.domain.entities.Course;
 import ru.josanr.sqlschool.domain.entities.Student;
+import ru.josanr.sqlschool.domain.services.CoursesService;
 import ru.josanr.sqlschool.infrastructure.dao.CoursesRepository;
 import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 

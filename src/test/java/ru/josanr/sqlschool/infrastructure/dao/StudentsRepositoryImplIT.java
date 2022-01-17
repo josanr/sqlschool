@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.helpers.DbHelper;
 import ru.josanr.sqlschool.infrastructure.dao.exceptions.StorageException;
+import ru.josanr.sqlschool.infrastructure.dao.impl.CoursesRepositoryImpl;
+import ru.josanr.sqlschool.infrastructure.dao.impl.GroupRepositoryImpl;
+import ru.josanr.sqlschool.infrastructure.dao.impl.StudentsRepositoryImpl;
 
 import javax.sql.DataSource;
 import java.util.List;

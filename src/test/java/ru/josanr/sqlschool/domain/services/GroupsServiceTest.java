@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Group;
+import ru.josanr.sqlschool.domain.services.impl.GroupsServiceImpl;
 import ru.josanr.sqlschool.infrastructure.dao.GroupRepository;
 import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
