@@ -33,7 +33,7 @@ class DeleteStudentTest {
             DeleteStudent deleteStudent = new DeleteStudent(studentService, input, output);
             when(input.readLine()).thenReturn("1");
             deleteStudent.run();
-            verify(studentService, times(1)).remove(1);
+            verify(studentService, times(1)).remove(1L);
         } catch (IOException e){
             Assertions.fail();
         }

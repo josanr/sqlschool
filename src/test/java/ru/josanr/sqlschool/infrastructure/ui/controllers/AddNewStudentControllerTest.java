@@ -36,7 +36,7 @@ class AddNewStudentControllerTest {
             String first_name = "first_name";
             String second_name = "second_name";
             when(input.readLine()).thenReturn(first_name, second_name);
-            when(studentService.createStudent(first_name, second_name)).thenReturn(new Student(1, first_name, second_name));
+            when(studentService.createStudent(first_name, second_name)).thenReturn(new Student(1L, first_name, second_name));
             addNewStudent.run();
             verify(output, times(1)).println("New student created with id: 1");
         } catch (IOException e){

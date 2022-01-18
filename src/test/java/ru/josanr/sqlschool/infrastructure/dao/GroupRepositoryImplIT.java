@@ -60,28 +60,28 @@ class GroupRepositoryImplIT {
 
     @Test
     void getById_ShouldReturnGroup_givenId() {
-        Group group = repo.getById(1);
-        assertThat(group.getId(), is(1));
+        Group group = repo.getById(1L);
+        assertThat(group.getId(), is(1L));
         assertThat(group.getName(), is("vy-20"));
     }
 
     @Test
     void addStudentToGroup() {
-        Student student = studentsRepository.getById(1);
-        Group group = new Group(1, "");
+        Student student = studentsRepository.getById(1L);
+        Group group = new Group(1L, "");
         repo.addStudentToGroup(group, student);
 
-        Student updated = studentsRepository.getById(1);
-        assertThat(updated.getGroup().getId(), is(1));
+        Student updated = studentsRepository.getById(1L);
+        assertThat(updated.getGroup().getId(), is(1L));
     }
 
     @Test
     void removeStudentFromGroup() {
-        Student student = studentsRepository.getById(1);
-        Group group = new Group(5, "");
+        Student student = studentsRepository.getById(1L);
+        Group group = new Group(5L, "");
         repo.removeStudentFromGroup(group, student);
 
-        Student updated = studentsRepository.getById(1);
+        Student updated = studentsRepository.getById(1L);
         assertThat(updated.getGroup(), Matchers.nullValue());
     }
 }

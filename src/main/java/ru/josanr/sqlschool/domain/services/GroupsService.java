@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface GroupsService {
 
-    List<String> findByStudentCount(long count);
+    List<String> findByStudentCount(int count);
 
-    void addStudentToGroup(Integer groupId, Integer studentId);
+    void addStudentToGroup(Long groupId, Long studentId);
 
-    void removeStudentFromGroup(Integer groupId, Integer studentId);
+    void removeStudentFromGroup(Long groupId, Long studentId);
 }

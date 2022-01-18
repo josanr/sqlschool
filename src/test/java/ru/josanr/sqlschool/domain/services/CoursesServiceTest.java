@@ -6,9 +6,9 @@ import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Course;
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.services.impl.CoursesServiceImpl;
+import ru.josanr.sqlschool.helpers.FakeHelper;
 import ru.josanr.sqlschool.infrastructure.dao.CoursesRepository;
 import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
-import ru.josanr.sqlschool.helpers.FakeHelper;
 
 class CoursesServiceTest {
 
@@ -27,8 +27,8 @@ class CoursesServiceTest {
 
     @Test
     void addStudentToCourse_shouldAddStudentToCourse_givenIds() {
-        var courseId = 1;
-        var studentId = 1;
+        var courseId = 1L;
+        var studentId = 1L;
 
         Course course = fakerHelper.course();
         Student student = fakerHelper.student();
@@ -42,8 +42,8 @@ class CoursesServiceTest {
 
     @Test
     void addStudentToCourse_shouldRemoveStudentFromCourse_givenIds() {
-        var courseId = 1;
-        var studentId = 1;
+        var courseId = 1L;
+        var studentId = 1L;
 
         Course course = fakerHelper.course();
         Student student = fakerHelper.student();

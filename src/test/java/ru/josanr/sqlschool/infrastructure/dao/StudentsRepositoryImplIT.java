@@ -51,10 +51,10 @@ class StudentsRepositoryImplIT {
 
     @Test
     void update_ShouldUpdateStudent_givenInput() {
-        Student newStudent = new Student(2, name, lastName);
+        Student newStudent = new Student(2L, name, lastName);
 
         studentsRepository.update(newStudent);
-        Student updatedUser = studentsRepository.getById(2);
+        Student updatedUser = studentsRepository.getById(2L);
         assertThat(updatedUser.getLastName(), is(lastName));
         assertThat(updatedUser.getFirstName(), is(name));
     }
@@ -73,19 +73,17 @@ class StudentsRepositoryImplIT {
 
     @Test
     void remove() {
-        Student student = new Student(1, "", "");
+        Student student = new Student(1L, "", "");
         studentsRepository.remove(student);
 
         assertThrows(StorageException.class,
-            ()->{
-                Student stored = studentsRepository.getById(1);
-            });
+            ()-> studentsRepository.getById(1L));
     }
 
     @Test
     void getById() {
-        Student student = studentsRepository.getById(1);
-        assertThat(student.getId(), is(1));
+        Student student = studentsRepository.getById(1L);
+        assertThat(student.getId(), is(1L));
         assertThat(student.getFirstName(), is("Zachary"));
         assertThat(student.getLastName(), is("Pollich"));
     }

@@ -48,8 +48,8 @@ public class AddStudentToCourse implements Controller {
         var courseIdInput = input.readLine();
 
         try {
-            var studentId = Integer.parseInt(studentIdInput);
-            var courseId = Integer.parseInt(courseIdInput);
+            var studentId = Long.parseLong(studentIdInput);
+            var courseId = Long.parseLong(courseIdInput);
             coursesService.addStudentToCourse(courseId, studentId);
         } catch (NumberFormatException e) {
             output.println("Student Id or Course Id not number.");

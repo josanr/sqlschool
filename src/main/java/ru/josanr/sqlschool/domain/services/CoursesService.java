@@ -9,9 +9,9 @@ public interface CoursesService {
 
     List<Student> listCourseStudents(String courseName);
 
-    void addStudentToCourse(Integer courseId, Integer studentId);
+    void addStudentToCourse(Long courseId, Long studentId);
 
-    void removeStudentFromCourse(Integer courseId, Integer studentId);
+    void removeStudentFromCourse(Long courseId, Long studentId);
 
     List<Course> findAll();
 }

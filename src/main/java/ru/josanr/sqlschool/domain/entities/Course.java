@@ -6,9 +6,9 @@ public class Course {
     private final String name;
     private final String description;
 
-    private Integer id;
+    private Long id;
 
-    public Course(Integer id, String name, String description) {
+    public Course(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -19,7 +19,7 @@ public class Course {
         this.description = description;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

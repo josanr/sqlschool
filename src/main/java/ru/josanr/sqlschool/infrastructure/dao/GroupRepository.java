@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface GroupRepository {
 
-    List<Group> findByStudentCount(long count);
+    List<Group> findByStudentCount(int count);
 
     Group create(Group group);
 
-    Group getById(Integer groupId);
+    Group getById(Long groupId);
 
     void addStudentToGroup(Group group, Student student);
 

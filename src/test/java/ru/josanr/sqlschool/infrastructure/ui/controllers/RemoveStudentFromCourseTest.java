@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.services.CoursesService;
-import ru.josanr.sqlschool.domain.services.GroupsService;
 import ru.josanr.sqlschool.domain.services.StudentService;
 
 import java.io.BufferedReader;
@@ -26,7 +25,6 @@ class RemoveStudentFromCourseTest {
 
     @BeforeEach
     void setUp() {
-        GroupsService groupsService = Mockito.mock(GroupsService.class);
         coursesService = Mockito.mock(CoursesService.class);
         studentService = Mockito.mock(StudentService.class);
         input = Mockito.mock(BufferedReader.class);
@@ -38,10 +36,10 @@ class RemoveStudentFromCourseTest {
     void run() {
         try{
             RemoveStudentFromCourse controller = new RemoveStudentFromCourse(studentService, coursesService, input, output);
-            Integer studentId = 1;
-            Integer courseId = 2;
+            Long studentId = 1L;
+            Long courseId = 2L;
             when(input.readLine()).thenReturn(String.valueOf(studentId), String.valueOf(courseId));
-            when(studentService.findById(studentId)).thenReturn(new Student(1, "", ""));
+            when(studentService.findById(studentId)).thenReturn(new Student(1L, "", ""));
             controller.run();
             verify(coursesService, times(1)).removeStudentFromCourse(courseId, studentId);
             verify(output, times(1)).print("student id: ");

@@ -24,7 +24,7 @@ public class DeleteStudent implements Controller {
         output.print("student id: ");
         var studentIdInput = input.readLine();
         try {
-            var studentId = Integer.parseInt(studentIdInput);
+            var studentId = Long.parseLong(studentIdInput);
             studentService.remove(studentId);
 
         } catch (NumberFormatException e) {

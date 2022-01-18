@@ -8,9 +8,9 @@ public class Group {
     private final String name;
     private final List<Student> studentList;
 
-    private Integer id;
+    private Long id;
 
-    public Group(Integer id, String name) {
+    public Group(Long id, String name) {
         this.id = id;
         this.name = name;
         this.studentList = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Group {
         this.studentList = new ArrayList<>();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

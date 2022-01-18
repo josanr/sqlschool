@@ -35,7 +35,7 @@ public class Config {
             return null;
         }
 
-        var pattern = Pattern.compile("\\$\\{(\\w+)\\}|\\$(\\w+)");
+        var pattern = Pattern.compile("\\$\\{(\\w+)}|\\$(\\w+)");
         var matcher = pattern.matcher(input);
         var string = new StringBuilder();
         while (matcher.find()) {

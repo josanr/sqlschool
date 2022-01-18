@@ -27,10 +27,10 @@ public class CoursesRepositoryImpl implements CoursesRepository {
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, student.getId());
+            stmt.setLong(1, student.getId());
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
-                    result.add(getById(resultSet.getInt("course_id")));
+                    result.add(getById(resultSet.getLong("course_id")));
                 }
             }
         } catch (SQLException e) {
@@ -60,14 +60,14 @@ public class CoursesRepositoryImpl implements CoursesRepository {
     }
 
     @Override
-    public Course getById(Integer id) {
+    public Course getById(Long id) {
         String sql = "SELECT id, name, description FROM courses WHERE id = ?";
 
         try (
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, id);
+            stmt.setLong(1, id);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
                 return map(resultSet);
@@ -79,7 +79,7 @@ public class CoursesRepositoryImpl implements CoursesRepository {
 
     private Course map(ResultSet resultSet) throws SQLException {
         return new Course(
-            resultSet.getInt("id"),
+            resultSet.getLong("id"),
             resultSet.getString("name"),
             resultSet.getString("description")
         );
@@ -94,8 +94,8 @@ public class CoursesRepositoryImpl implements CoursesRepository {
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, course.getId());
-            stmt.setInt(2, student.getId());
+            stmt.setLong(1, course.getId());
+            stmt.setLong(2, student.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new StorageException("Error on updating student course", e);
@@ -111,8 +111,8 @@ public class CoursesRepositoryImpl implements CoursesRepository {
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, course.getId());
-            stmt.setInt(2, student.getId());
+            stmt.setLong(1, course.getId());
+            stmt.setLong(2, student.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new StorageException("Error on removing student from  course", e);
@@ -131,7 +131,7 @@ public class CoursesRepositoryImpl implements CoursesRepository {
             stmt.setString(2, course.getDescription());
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
-                var newId = resultSet.getInt(1);
+                var newId = resultSet.getLong(1);
                 return getById(newId);
             }
         } catch (SQLException e) {

@@ -36,7 +36,7 @@ class AddStudentToCourseTest {
             AddStudentToCourse addStudentToCourse = new AddStudentToCourse(studentService, coursesService, input, output);
             when(input.readLine()).thenReturn("1", "2");
             addStudentToCourse.run();
-            verify(coursesService, times(1)).addStudentToCourse(2, 1);
+            verify(coursesService, times(1)).addStudentToCourse(2L, 1L);
         } catch (IOException e){
             Assertions.fail();
         }

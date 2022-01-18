@@ -8,9 +8,9 @@ public interface StudentService {
 
     Student createStudent(String firstName, String lastName);
 
-    void remove(Integer id);
+    void remove(Long id);
 
     List<Student> findAll();
 
-    Student findById(int studentId);
+    Student findById(Long studentId);
 }

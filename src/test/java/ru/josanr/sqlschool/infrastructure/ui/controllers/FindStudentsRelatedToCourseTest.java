@@ -39,7 +39,7 @@ class FindStudentsRelatedToCourseTest {
             String lastName = "test_Last_name";
 
             when(input.readLine()).thenReturn(courseName);
-            when(coursesService.listCourseStudents(courseName)).thenReturn(List.of(new Student(1, firstName, lastName)));
+            when(coursesService.listCourseStudents(courseName)).thenReturn(List.of(new Student(1L, firstName, lastName)));
             controller.run();
             verify(coursesService, times(1)).listCourseStudents(courseName);
             verify(output, times(1)).println("Name\n-------------");

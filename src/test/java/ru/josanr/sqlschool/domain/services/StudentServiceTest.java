@@ -6,8 +6,8 @@ import org.mockito.Mockito;
 import ru.josanr.sqlschool.domain.entities.Student;
 import ru.josanr.sqlschool.domain.factories.StudentFactory;
 import ru.josanr.sqlschool.domain.services.impl.StudentServiceImpl;
-import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 import ru.josanr.sqlschool.helpers.FakeHelper;
+import ru.josanr.sqlschool.infrastructure.dao.StudentsRepository;
 
 class StudentServiceTest {
 
@@ -29,9 +29,9 @@ class StudentServiceTest {
 
         var student = fakeHelper.student();
         Mockito.when(factory.create(student.getFirstName(), student.getLastName())).thenReturn(student);
-        Mockito.when(repository.create(student)).thenReturn(new Student(1, student.getFirstName(), student.getLastName()));
+        Mockito.when(repository.create(student)).thenReturn(new Student(1L, student.getFirstName(), student.getLastName()));
 
-        var createdStudent = studentService.createStudent(student.getFirstName(), student.getLastName());
+        studentService.createStudent(student.getFirstName(), student.getLastName());
 
         Mockito.verify(repository, Mockito.times(1)).create(student);
     }

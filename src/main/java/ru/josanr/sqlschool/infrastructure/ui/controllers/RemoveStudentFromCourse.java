@@ -39,7 +39,7 @@ public class RemoveStudentFromCourse implements Controller {
         try {
             output.print("student id: ");
             var studentIdInput = input.readLine();
-            var studentId = Integer.parseInt(studentIdInput);
+            var studentId = Long.parseLong(studentIdInput);
             var student = studentService.findById(studentId);
             output.println("id - Student Courses\n----------------------");
             for (var course : student.getCourseList()) {
@@ -47,7 +47,7 @@ public class RemoveStudentFromCourse implements Controller {
             }
             output.print("course id: ");
             var courseIdInput = input.readLine();
-            var courseId = Integer.parseInt(courseIdInput);
+            var courseId = Long.parseLong(courseIdInput);
             coursesService.removeStudentFromCourse(courseId, studentId);
 
         } catch (NumberFormatException e) {

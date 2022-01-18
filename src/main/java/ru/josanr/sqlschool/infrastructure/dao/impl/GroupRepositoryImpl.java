@@ -20,7 +20,7 @@ public class GroupRepositoryImpl implements GroupRepository {
     }
 
     @Override
-    public List<Group> findByStudentCount(long count) {
+    public List<Group> findByStudentCount(int count) {
         String sql = "SELECT g.id " +
             "FROM groups g " +
             "JOIN students s on g.id = s.group_id " +
@@ -35,7 +35,7 @@ public class GroupRepositoryImpl implements GroupRepository {
             stmt.setLong(1, count);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 while (resultSet.next()) {
-                    result.add(getById(resultSet.getInt("id")));
+                    result.add(getById(resultSet.getLong("id")));
                 }
             }
         } catch (SQLException e) {
@@ -56,7 +56,7 @@ public class GroupRepositoryImpl implements GroupRepository {
             stmt.setString(1, group.getName());
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
-                var newId = resultSet.getInt(1);
+                var newId = resultSet.getLong(1);
                 return getById(newId);
             }
         } catch (SQLException e) {
@@ -65,14 +65,14 @@ public class GroupRepositoryImpl implements GroupRepository {
     }
 
     @Override
-    public Group getById(Integer groupId) {
+    public Group getById(Long groupId) {
         String sql = "SELECT id, name FROM groups WHERE id = ?";
 
         try (
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, groupId);
+            stmt.setLong(1, groupId);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
                 return map(resultSet);
@@ -91,8 +91,8 @@ public class GroupRepositoryImpl implements GroupRepository {
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, group.getId());
-            stmt.setInt(2, student.getId());
+            stmt.setLong(1, group.getId());
+            stmt.setLong(2, student.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new StorageException("Error on updating student group", e);
@@ -107,8 +107,8 @@ public class GroupRepositoryImpl implements GroupRepository {
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, student.getId());
-            stmt.setInt(2, group.getId());
+            stmt.setLong(1, student.getId());
+            stmt.setLong(2, group.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new StorageException("Error on removing student from group", e);
@@ -117,6 +117,6 @@ public class GroupRepositoryImpl implements GroupRepository {
 
 
     private Group map(ResultSet resultSet) throws SQLException {
-        return new Group(resultSet.getInt("id"), resultSet.getString("name"));
+        return new Group(resultSet.getLong("id"), resultSet.getString("name"));
     }
 }

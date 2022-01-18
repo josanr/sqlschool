@@ -25,7 +25,7 @@ public class CoursesServiceImpl implements CoursesService {
     }
 
     @Override
-    public void addStudentToCourse(Integer courseId, Integer studentId) {
+    public void addStudentToCourse(Long courseId, Long studentId) {
         Course course = courseRepo.getById(courseId);
         Student student = studentRepo.getById(studentId);
 
@@ -34,7 +34,7 @@ public class CoursesServiceImpl implements CoursesService {
     }
 
     @Override
-    public void removeStudentFromCourse(Integer courseId, Integer studentId) {
+    public void removeStudentFromCourse(Long courseId, Long studentId) {
         Course course = courseRepo.getById(courseId);
         Student student = studentRepo.getById(studentId);
 

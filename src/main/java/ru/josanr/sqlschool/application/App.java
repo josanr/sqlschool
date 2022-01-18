@@ -31,6 +31,9 @@ public class App {
 
                 this.execute(command);
 
+                output.println("Press Enter key to continue...");
+                input.readLine();
+
             } catch (Exception e) {
                 output.println("Application error: " + e.getMessage());
                 e.printStackTrace();
@@ -62,7 +65,5 @@ public class App {
         } catch (RuntimeException e) {
             output.println(e.getMessage());
         }
-        output.println("Press Enter key to continue...");
-        input.readLine();
     }
 }

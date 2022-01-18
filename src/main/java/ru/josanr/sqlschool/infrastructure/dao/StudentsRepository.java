@@ -14,7 +14,7 @@ public interface StudentsRepository {
 
     void remove(Student student);
 
-    Student getById(Integer studentId);
+    Student getById(Long studentId);
 
     List<Student> findAll();
 }

@@ -9,7 +9,7 @@ public interface CoursesRepository {
 
     Course create(Course course);
 
-    Course getById(Integer id);
+    Course getById(Long id);
 
     void addStudentToCourse(Course course, Student student);
 

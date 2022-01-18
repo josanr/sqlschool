@@ -8,7 +8,7 @@ public class Student {
     private final List<Course> courseList = new ArrayList<>();
     private final String firstName;
     private final String lastName;
-    private Integer id;
+    private Long id;
 
     private Group group;
 
@@ -17,13 +17,13 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public Student(Integer id, String firstName, String lastName) {
+    public Student(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

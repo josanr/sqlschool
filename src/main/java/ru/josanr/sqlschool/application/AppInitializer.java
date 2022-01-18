@@ -41,7 +41,6 @@ public class AppInitializer {
         CoursesRepository courseRepo,
         Faker faker,
         Flyway flyway
-
     ) {
         this.studentsRepo = studentsRepo;
         this.groupRepo = groupRepo;
@@ -63,15 +62,14 @@ public class AppInitializer {
 
         for (Student student : studentList) {
             var randomGroupIndex = random.ints(0, groupList.size() - 1)
-                .findFirst()
-                .getAsInt();
+                .findFirst();
 
             var randomCourseIndex = random.ints(0, courseList.size() - 1)
-                .findFirst()
-                .getAsInt();
+                .findFirst();
 
-            var course = courseList.get(randomCourseIndex);
-            var group = groupList.get(randomGroupIndex);
+
+            var course = courseList.get(randomCourseIndex.orElse(0));
+            var group = groupList.get(randomGroupIndex.orElse(0));
             courseRepo.addStudentToCourse(course, student);
             groupRepo.addStudentToGroup(group, student);
         }

@@ -61,14 +61,14 @@ public class StudentsRepositoryImpl implements StudentsRepository {
             var stmt = connection.prepareStatement(sql)
         ) {
             if (student.getGroup() != null) {
-                stmt.setInt(1, student.getGroup().getId());
+                stmt.setLong(1, student.getGroup().getId());
             } else {
                 stmt.setNull(1, Types.INTEGER);
             }
 
             stmt.setString(2, student.getFirstName());
             stmt.setString(3, student.getLastName());
-            stmt.setInt(4, student.getId());
+            stmt.setLong(4, student.getId());
             stmt.executeUpdate();
             return student;
         } catch (SQLException e) {
@@ -86,7 +86,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
             var stmt = connection.prepareStatement(sql)
         ) {
             if (student.getGroup() != null) {
-                stmt.setInt(1, student.getGroup().getId());
+                stmt.setLong(1, student.getGroup().getId());
             } else {
                 stmt.setNull(1, Types.INTEGER);
             }
@@ -94,7 +94,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
             stmt.setString(3, student.getLastName());
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
-                var newId = resultSet.getInt(1);
+                var newId = resultSet.getLong(1);
                 return getById(newId);
             }
         } catch (SQLException e) {
@@ -110,7 +110,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, student.getId());
+            stmt.setLong(1, student.getId());
             var rows = stmt.executeUpdate();
             if (rows == 0 || rows > 1) {
                 throw new StorageException("No rows or two many deleted");
@@ -121,14 +121,14 @@ public class StudentsRepositoryImpl implements StudentsRepository {
     }
 
     @Override
-    public Student getById(Integer studentId) {
+    public Student getById(Long studentId) {
         String sql = "SELECT s.id, s.first_name, s.last_name, s.group_id FROM students s WHERE id = ?";
 
         try (
             var connection = connectionSource.getConnection();
             var stmt = connection.prepareStatement(sql)
         ) {
-            stmt.setInt(1, studentId);
+            stmt.setLong(1, studentId);
             try (ResultSet resultSet = stmt.executeQuery()) {
                 resultSet.next();
                 return map(resultSet);
@@ -160,12 +160,12 @@ public class StudentsRepositoryImpl implements StudentsRepository {
 
     private Student map(ResultSet resultSet) throws SQLException {
         var student = new Student(
-            resultSet.getInt("id"),
+            resultSet.getLong("id"),
             resultSet.getString("first_name"),
             resultSet.getString("last_name")
         );
 
-        int groupId = resultSet.getInt("group_id");
+        var groupId = resultSet.getLong("group_id");
         if (groupId != 0) {
             var group = groupRepo.getById(groupId);
             student.setGroup(group);

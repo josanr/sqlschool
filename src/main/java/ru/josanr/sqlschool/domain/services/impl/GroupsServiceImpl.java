@@ -18,7 +18,7 @@ public class GroupsServiceImpl implements GroupsService {
     }
 
     @Override
-    public List<String> findByStudentCount(long count) {
+    public List<String> findByStudentCount(int count) {
         return groupRepo.findByStudentCount(count)
             .stream()
             .map(item -> item.getId() + " - " + item.getName())
@@ -26,7 +26,7 @@ public class GroupsServiceImpl implements GroupsService {
     }
 
     @Override
-    public void addStudentToGroup(Integer groupId, Integer studentId) {
+    public void addStudentToGroup(Long groupId, Long studentId) {
         var group = groupRepo.getById(groupId);
         var student = studentRepo.getById(studentId);
 
@@ -35,7 +35,7 @@ public class GroupsServiceImpl implements GroupsService {
     }
 
     @Override
-    public void removeStudentFromGroup(Integer groupId, Integer studentId) {
+    public void removeStudentFromGroup(Long groupId, Long studentId) {
         var group = groupRepo.getById(groupId);
         var student = studentRepo.getById(studentId);
 

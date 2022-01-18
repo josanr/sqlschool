@@ -20,8 +20,8 @@ public class FakeHelper {
         return faker.lorem().words().toString();
     }
 
-    public Integer id() {
-        return faker.number().randomDigit();
+    public Long id() {
+        return faker.number().randomNumber();
     }
 
     public Student student() {
